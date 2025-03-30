@@ -1,92 +1,130 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { Colors } from '@/constants/Colors';
-import { Link } from 'expo-router';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function Index() {
-  const colorScheme: 'light' | 'dark' = useColorScheme() ?? 'light';
-  const styles = getStyles(colorScheme);
-  const [isFocused, setIsFocused] = useState(false);
+export default function LoginScreen() {
+  const router = useRouter();
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Foninho!</Text>
+      <Text style={styles.logo}>FONINHO</Text>
+      <Text style={styles.subtitle}>Profissional</Text>
 
-      <View style={styles.formContainer}>
-        <Text style={styles.texto}>Login</Text>
+      <View style={styles.inputContainer}>
         <TextInput
-          style={[styles.inputs, isFocused && styles.inputFocused]}
-          placeholder="Email, usuário..."
-          placeholderTextColor="gray"
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
-
-        <Text style={styles.texto}>Senha</Text>
-        <TextInput
-          secureTextEntry
-          style={styles.inputs}
-          placeholder="Digite sua senha..."
-          placeholderTextColor="gray"
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#aaa"
         />
       </View>
 
-      <Link href='./forgot_password'>
-        <Text style={styles.forgot}>Esqueci minha senha</Text>
-      </Link>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          placeholderTextColor="#aaa"
+          secureTextEntry={!passwordVisible}
+        />
+        <TouchableOpacity
+          style={styles.eyeIcon}
+          onPress={() => setPasswordVisible(!passwordVisible)}
+        >
+          <Ionicons
+            name={passwordVisible ? 'eye' : 'eye-off'}
+            size={20}
+            color="#888"
+          />
+        </TouchableOpacity>
+      </View>
 
-      <Link style={styles.button} href="../(tabs)/home">
-        <Button title="Entrar" />
-      </Link>
+      <TouchableOpacity
+        style={{
+          marginBottom: 20,
+        }}
+      >
+        <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={() => router.push('../(tabs)/home')}
+      >
+        <Text style={styles.loginButtonText}>Login</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.registerText}>
+        Não tem uma conta? <Text style={styles.registerLink}>Cadastre-se</Text>
+      </Text>
     </View>
   );
 }
 
-// Definição correta dos estilos
-const getStyles = (colorScheme: 'light' | 'dark') =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: Colors[colorScheme].background,
-    },
-    titulo: {
-      color: Colors[colorScheme].text,
-      fontSize: 26,
-      fontWeight: 'bold',
-      marginTop: -150,
-      marginBottom: 150,
-    },
-    formContainer: {
-      width: '50%', 
-    },
-    texto: {
-      color: Colors[colorScheme].text,
-      fontSize: 16,
-      alignSelf: 'flex-start',
-      marginBottom: 5,
-    },
-    button : {
-      marginTop: 20,
-    },
-    forgot: {
-      color: Colors[colorScheme].text,
-      fontSize: 10,
-      textDecorationLine: 'underline',
-    },
-    inputs: {
-      width: '100%',
-      borderRadius: 5, 
-      padding: 10,
-      marginBottom: 15,
-      backgroundColor: 'white',
-      borderWidth: 1,
-      borderColor: 'gray',
-    },
-    inputFocused: {
-      borderColor: 'transparent',
-    },
-  });
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F8F8F8',
+  },
+  logo: {
+    fontSize: 54,
+    marginBottom: 5,
+    fontFamily: 'MontserratAlternates_800ExtraBold',
+  },
+  subtitle: {
+    fontSize: 20,
+    marginBottom: 30,
+    fontFamily: 'PlusJakartaSans_700Bold',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '80%',
+    borderRadius: 10,
+    paddingHorizontal: 16,
+    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  input: {
+    flex: 1,
+    height: 50,
+    color: '#333',
+  },
+  eyeIcon: {
+    padding: 10,
+  },
+  forgotPassword: {
+    color: '#007BFF',
+    fontSize: 14,
+  },
+  loginButton: {
+    backgroundColor: '#007BFF',
+    width: '80%',
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  loginButtonText: {
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  registerText: {
+    marginTop: 20,
+    fontSize: 14,
+    color: '#555',
+  },
+  registerLink: {
+    color: '#007BFF',
+    fontWeight: 'bold',
+  },
+});

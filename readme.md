@@ -8,3 +8,6 @@ Projeto da cadeira de [Projetão](https://www.projetao.com.br/generator/?) do CI
 3. Repita o processo para a pasta backend.
 
 Para o desenvolvimento, antes de qualquer commit rode o comando `npm run fix` na pasta frontend para manter o padrão de boas práticas no projeto.
+
+
+**OBS:** Leia o readme dentro da pasta backend

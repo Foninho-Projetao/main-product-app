@@ -1,12 +1,11 @@
 const express = require("express");
 var cors = require('cors')
 const app = express();
-const router = require("./views/exemplo.routes");
-
 app.use(express.json()); 
-
 app.use(cors())
 
+//Ellian/Progresso
+const router = require("./views/progresso.routes");
 app.use("/", router);
 
 app.listen(3000, () => {
