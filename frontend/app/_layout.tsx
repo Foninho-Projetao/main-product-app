@@ -44,6 +44,7 @@ export default function RootLayout() {
           name="(auth)/index.tsx"
           options={{ headerShown: false }}
         />
+        <Stack.Screen name="exercisesFono/adicionarExercicio" options={{ title: "Exercícios" }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
