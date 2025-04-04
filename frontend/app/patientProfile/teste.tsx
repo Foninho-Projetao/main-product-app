@@ -28,35 +28,35 @@ export default function Teste() {
   const [selectedSubTab, setSelectedSubTab] = useState('7 dias'); 
   const [exercises, setExercises] = useState<Exercise[]>([]); 
   const [patientName, setPatientName] = useState(''); 
-  const [feedback, setFeedback] = useState(""); // Estado para armazenar o feedback
+  const [feedback, setFeedback] = useState(''); // Estado para armazenar o feedback
 
   const cpf = '12345678900'; 
 
   const sendFeedback = async () => {
     if (!feedback.trim()) {
-      alert("Por favor, digite um feedback antes de enviar.");
+      alert('Por favor, digite um feedback antes de enviar.');
       return;
     }
   
     try {
       const response = await fetch(`http://localhost:3000/pacientes/${cpf}/feedback`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ feedback }),
       });
   
       if (response.ok) {
-        alert("Feedback enviado com sucesso!");
-        setFeedback(""); // Limpa o campo de texto após o envio
+        alert('Feedback enviado com sucesso!');
+        setFeedback(''); // Limpa o campo de texto após o envio
       } else {
         const errorData = await response.json();
         alert(`Erro ao enviar feedback: ${errorData.error}`);
       }
     } catch (error) {
-      console.error("Erro ao enviar feedback:", error);
-      alert("Erro ao enviar feedback. Tente novamente mais tarde.");
+      console.error('Erro ao enviar feedback:', error);
+      alert('Erro ao enviar feedback. Tente novamente mais tarde.');
     }
   };
 
@@ -131,7 +131,7 @@ export default function Teste() {
 
 
 
-   return (
+  return (
     <View style={{ flex: 1, backgroundColor: '#fff'  }}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
@@ -239,8 +239,8 @@ export default function Teste() {
                     parseFloat(calculateAverage(selectedSubTab)) >= 4
                       ? styles.greenCircle
                       : parseFloat(calculateAverage(selectedSubTab)) >= 2
-                      ? styles.yellowCircle
-                      : styles.redCircle,
+                        ? styles.yellowCircle
+                        : styles.redCircle,
                   ]}
                 >
                   <Entypo name="star" size={16} color="#fff" />
@@ -269,8 +269,8 @@ export default function Teste() {
                           item.nota_execucao >= 4
                             ? styles.greenCircle
                             : item.nota_execucao >= 2
-                            ? styles.yellowCircle
-                            : styles.redCircle,
+                              ? styles.yellowCircle
+                              : styles.redCircle,
                         ]}
                       >
                         <Entypo name="star" size={16} color="#fff" />
@@ -547,32 +547,32 @@ const styles = StyleSheet.create({
 
 
   feedbackContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     padding: 16,
     borderTopWidth: 1,
-    borderTopColor: "#E7E7E7",
-    backgroundColor: "#fff",
+    borderTopColor: '#E7E7E7',
+    backgroundColor: '#fff',
   },
   feedbackInput: {
     flex: 1,
     height: 40,
     borderWidth: 1,
-    borderColor: "#E7E7E7",
+    borderColor: '#E7E7E7',
     borderRadius: 8,
     paddingHorizontal: 8,
     marginRight: 8,
   },
   feedbackButton: {
-    backgroundColor: "#006FFD",
+    backgroundColor: '#006FFD',
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 8,
   },
   feedbackButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
+    color: '#fff',
+    fontWeight: 'bold',
     fontSize: 14,
   },
 
