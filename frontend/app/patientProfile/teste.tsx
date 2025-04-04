@@ -201,6 +201,124 @@ export default function Teste() {
           </View>
 
           {/* Conteúdo das abas */}
+          {selectedTab === 'Frequência' && (
+            <View style={styles.tabContent}>
+              {/* Frequência */}
+              <View style={{ marginBottom: 8 }}>
+                <Text style={styles.progressTitle}>Frequência</Text>
+              </View>
+
+              <View style={styles.progressContainer}>
+                <Text style={styles.progressPeriod}>Últimos 7 dias</Text>
+                <View style={styles.frequencyContent}>
+                  <Text style={styles.additionalText}>100%</Text>
+                    <View
+                      style={[
+                        styles.progressCircle, styles.blueCircle
+                      ]}
+                    >
+                    <Text style={styles.progressText}>
+                      ÓTIMA
+                    </Text>
+                  </View>
+                </View>
+              </View>
+
+              <View style={styles.dividerLarge} />
+
+              {/* Dias da semana */}
+
+              <View style={styles.weekRow}>
+                  <View style={styles.weekItem}>
+                    <Text style={styles.weekDayText}>Ter</Text>
+                    <View style={styles.weekCircle}> 
+                      <Entypo name="calendar" size={22} color="#fff" />
+                    </View>
+                  </View>
+
+                  <View style={styles.weekItem}>
+                    <Text style={styles.weekDayText}>Qua</Text>
+                    <View style={styles.weekCircle}> 
+                      <View style={styles.whiteCircle}>
+                        <Entypo name="cross" size={26} color="#006FFD" />
+                      </View>
+                    </View>
+                  </View>
+
+                  <View style={styles.weekItem}>
+                    <Text style={styles.weekDayText}>Qui</Text>
+                    <View style={styles.weekCircle}> 
+                      <View style={styles.rightSemiCircle} />
+                    </View>
+                  </View>
+
+                  <View style={styles.weekItem}>
+                    <Text style={styles.weekDayText}>Sex</Text>
+                    <View style={styles.weekCircle}> 
+                      <Entypo name="check" size={24} color="#fff" />
+                    </View>
+                  </View>
+
+                  <View style={styles.weekItem}>
+                    <Text style={styles.weekDayText}>Sáb</Text>
+                    <View style={styles.weekCircle}> 
+                      <Entypo name="check" size={24} color="#fff" />
+                    </View>
+                  </View>
+
+                  <View style={styles.weekItem}>
+                    <Text style={styles.weekDayText}>Dom</Text>
+                    <View style={styles.weekCircle}> 
+                      <Entypo name="check" size={24} color="#fff" />
+                    </View>
+                  </View>
+
+                  <View style={styles.weekItem}>
+                    <Text style={styles.weekDayText}>Seg</Text>
+                    <View style={styles.weekCircle}> 
+                      <View style={styles.whiteCircle} />
+                    </View>
+                  </View>
+
+              </View>
+
+              <View style={styles.dividerLarge} />
+              
+              <View style={styles.frequencyContainer}>
+                <Text style={styles.progressPeriod}>Último mês</Text>
+  
+                <View style={styles.frequencyContent}>
+                  <Text style={styles.additionalText}>85%</Text>
+                  <View style={[styles.frequencyGradeCircle, styles.blueCircle]}>
+                    <Text style={styles.frequencyText}>BOA</Text>
+                  </View>
+                </View>
+              </View>
+
+              <View style={styles.frequencyContainer}>
+                <Text style={styles.progressPeriod}>3 Meses</Text>
+
+                <View style={styles.frequencyContent}>
+                  <Text style={styles.additionalText}>75%</Text>
+                  <View style={[styles.frequencyGradeCircle, styles.blueCircle]}>
+                    <Text style={styles.frequencyText}>BOA</Text>
+                  </View>
+                </View>
+              </View>
+
+              <View style={styles.frequencyContainer}>
+                <Text style={styles.progressPeriod}>Tratamento inteiro</Text>
+
+                <View style={styles.frequencyContent}>
+                  <Text style={styles.additionalText}>80%</Text>
+                  <View style={[styles.frequencyGradeCircle, styles.blueCircle]}>
+                    <Text style={styles.frequencyText}>BOA</Text>
+                  </View>
+                </View>
+              </View>
+              </View>
+          )}
+
           {selectedTab === 'Progresso' && (
             <View style={styles.tabContent}>
               {/* Aba de seleção */}
@@ -436,6 +554,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff', 
   },
+  blueCircle: {
+    backgroundColor: '#006FFD', 
+  },
   greenCircle: {
     backgroundColor: '#4CAF50', 
   },
@@ -582,5 +703,102 @@ const styles = StyleSheet.create({
     paddingBottom: 80, // Espaço para o feedback fixo
   },
 
+  weekContainer: {
+    alignItems: 'center', // Centraliza tudo no eixo transversal
+  },
+  weekDaysRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Distribui os itens igualmente
+    width: '100%',
+    paddingHorizontal: 30, // Adapte conforme necessário
+  },
+  weekIconsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Mesma largura dos textos
+    width: '100%',
+    paddingHorizontal: 20,
+    marginTop: 8, // Espaço entre os dias e as bolinhas
+  },
+
+  weekRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+  },
+
+  weekItem: {
+    alignItems: 'center',
+    flex: 1, // Garante que todos os 7 itens tenham o mesmo espaço
+  },
+  
+  weekDayText: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  
+  weekCircle: {
+    width: 31,
+    height: 31,
+    borderRadius: 15.5,
+    backgroundColor: '#006FFD',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  frequencyContainer: {
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    marginBottom: 10, 
+  },
+
+  frequencyGradeCircle: {
+    width: 65, 
+    height: 30, 
+    borderRadius: 24, 
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row', 
+    paddingHorizontal: 10, 
+    backgroundColor: '#F5F5F5', 
+    marginRight: 13, 
+  },
+
+  frequencyText: {
+    fontSize: 14, 
+    fontWeight: 'bold',
+    color: '#fff', 
+    textAlign: 'center',
+  },
+
+  frequencyContent: {
+    flexDirection: 'row', // Coloca o texto e o círculo lado a lado
+    alignItems: 'center', // Alinha verticalmente
+  },
+  
+  additionalText: {
+    fontSize: 14, 
+    fontWeight: 'bold',
+    color: '#333', 
+    marginRight: 8, // Espaço entre "Sua nota:" e o círculo
+  },
+
+    whiteCircle: {
+    width: 25, 
+    height: 25,
+    borderRadius: 12.5, 
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  rightSemiCircle: {
+    width: 12.5,
+    height: 25,
+    borderTopRightRadius: 12.5,
+    borderBottomRightRadius: 12.5,
+    backgroundColor: 'white',
+    left: 6.25,
+  },
 
 });
