@@ -148,7 +148,7 @@ export default function Explore() {
       <View style={styles.floatingActionButton}>
         <FloatingAction
           onPress={() => {
-            router.navigate("../patientProfile/teste");
+            router.navigate('../patientProfile/teste');
           }}
         />
       </View>
