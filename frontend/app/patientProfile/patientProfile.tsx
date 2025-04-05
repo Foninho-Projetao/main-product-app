@@ -28,6 +28,7 @@ export default function PatientProfile() {
   const [selectedSubTab, setSelectedSubTab] = useState("7 dias");
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [patientName, setPatientName] = useState("");
+  const [hiddenExercises, setHiddenExercises] = useState<string[]>([]);
   const [feedback, setFeedback] = useState(""); // Estado para armazenar o feedback
 
   const cpf = "12345678900";
@@ -88,7 +89,7 @@ export default function PatientProfile() {
   };
 
   useEffect(() => {
-    if (selectedTab === "Progresso") {
+    if (selectedTab === "Progresso" || selectedTab === "Exercícios") {
       fetchExercises();
     }
   }, [selectedTab]);
@@ -128,6 +129,15 @@ export default function PatientProfile() {
       0
     );
     return (total / filteredExercises.length).toFixed(1); // Média com 1 casa decimal
+  };
+
+  // Função para ocultar/exibir exercício
+  const toggleExerciseVisibility = (exerciseId: string) => {
+    setHiddenExercises(prev =>
+      prev.includes(exerciseId)
+        ? prev.filter(id => id !== exerciseId)
+        : [...prev, exerciseId]
+    );
   };
 
   return (
@@ -287,6 +297,54 @@ export default function PatientProfile() {
               )}
             </View>
           )}
+
+          {/* Conteúdo da aba Exercícios */}
+          {selectedTab === "Exercícios" && (
+            <View style={styles.exercisesContainer}>
+              <Text style={styles.exercisesTitle}>Exercícios</Text>
+
+              <TouchableOpacity
+                style={styles.addExerciseButton}
+                onPress={() => router.push('/exercisesFono/adicionarExercicio')}
+              >
+                <Text style={styles.addExerciseText}>Adicionar exercício</Text>
+              </TouchableOpacity>
+              <Text style={styles.categoryTitle}>Motricidade orofacial</Text>
+              <FlatList
+                data={exercises.filter(e => !hiddenExercises.includes(e.nome_exercicio))}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={styles.exerciseItemDiv}
+                    onPress={() => router.push({
+                      pathname: '/exercisesFono/exercicioF',
+                      params: { exercicio: JSON.stringify(item) }
+                    })}
+                  >
+                    <View style={styles.exerciseContent}>
+                      <View style={styles.leftContent}>
+                        <Image
+                          source={require('@/assets/images/lips.png')}
+                          style={styles.leftImage}
+                        />
+                        <Text style={styles.exerciseName}>{item.nome_exercicio}</Text>
+                      </View>
+
+                      {/* Botão da lixeira */}
+                      <TouchableOpacity onPress={() => toggleExerciseVisibility(item.nome_exercicio)}>
+                        <Image
+                          source={require('@/assets/images/Vector.png')} // coloque aqui a imagem da lixeira
+                          style={{ width: 24, height: 24 }}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </TouchableOpacity>
+                )}
+              />
+
+            </View>
+          )}
+
         </View>
       </ScrollView>
 
@@ -309,6 +367,69 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  exercisesContainer: {
+    paddingHorizontal: 24,
+    marginTop: 16,
+  },
+  exercisesTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 16,
+  },
+  addExerciseButton: {
+    backgroundColor: "#006FFD",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 20,
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  addExerciseText: {
+    color: "white",
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  categoryTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 12,
+    color: "#50525A",
+  },
+  exerciseItemDiv: {
+    padding: 16,
+    backgroundColor: "#F8F9FE",
+    borderRadius: 24,
+    marginTop: 16,
+    borderColor: "#FF9096",
+    borderWidth: 4
+  },
+  exerciseContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between', // Isso empurra os itens para as extremidades
+  },
+  leftContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1, // Ocupa todo o espaço disponível (exceto o necessário para a imagem direita)
+  },
+  leftImage: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
+    borderRadius: 5
+  },
+  rightImage: {
+    width: 20,
+    height: 20,
+    marginLeft: 10, // Espaço entre o texto e a imagem direita
+  },
+  exerciseName: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#333',
+    flexShrink: 1, // Permite que o texto quebre se necessário
   },
   header: {
     flexDirection: "row",
@@ -382,10 +503,6 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 25,
     backgroundColor: "#F5F5F5",
-  },
-  exerciseName: {
-    fontSize: 14,
-    fontWeight: "bold",
   },
   exerciseDetails: {
     fontSize: 12,

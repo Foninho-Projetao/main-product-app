@@ -31,6 +31,33 @@ async function main() {
     },
   });
 
+  // Inserir exercícios na tabela Exercicios
+  const exerciciosC = [
+    {
+      nome_exercicio: "Lateralizar",
+      repeticoes: 10,
+      texto_descritivo: "Movimentar a língua da esquerda para a direita lentamente.",
+      video_exemplo: "https://www.youtube.com/watch?v=video1",
+      cpf_fono: "98765432100",
+      cpf_paciente: "12345678900",
+      data_execucao: new Date("2025-04-04"),
+    },
+    {
+      nome_exercicio: "Afilar Língua",
+      repeticoes: 8,
+      texto_descritivo: "Afilar a língua por 5 segundos, depois relaxar.",
+      video_exemplo: "https://www.youtube.com/watch?v=video2",
+      cpf_fono: "98765432100",
+      cpf_paciente: "12345678900",
+      data_execucao: new Date("2025-04-04"),
+    }
+  ];
+
+  for (const exercicio of exerciciosC) {
+    await prisma.exercicios.create({ data: exercicio });
+  }
+
+
   // Inserir uma dúvida
   const dataHora = new Date("2025-03-29T16:07:10-03:00").toString();
   const mensagem = "Como melhorar minha execução nos exercícios?";
@@ -144,7 +171,7 @@ async function main() {
         senha: "123456"
       }
     ]
-  
+
     for (const fono of fonos) {
       await prisma.fono.upsert({
         where: { cpf: fono.cpf },
@@ -211,7 +238,6 @@ async function main() {
     await prisma.exerciciosRealizados.create({ data: exercicio });
   }
 
-  console.log("Dados inseridos com sucesso!");
 }
 
 main()

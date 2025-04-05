@@ -14,6 +14,10 @@ app.use("/pacientes", pacienteRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
+//Aline/ExerciciosFono
+const exercisesRouter = require("./routes/exercises.routes");
+app.use("/", exercisesRouter);
+
 app.listen(3000, () => {
   console.log("Server is listening on port 3000");
 });
